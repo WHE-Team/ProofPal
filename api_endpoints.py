@@ -34,9 +34,9 @@ def run_game():
 def exit_fortnite():
     for process in psutil.process_iter(['pid', 'name']):
         if process.info['name'] == 'FortniteClient-Win64-Shipping.exe':
-            print("Terminating Fortnite...")
+            print("Terminating...")
             psutil.Process(process.info['pid']).terminate()
-            print("Fortnite terminated.")
+            print("Terminated.")
             return
 
 def check_and_exit_fortnite():
