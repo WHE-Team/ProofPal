@@ -53,5 +53,14 @@ def save_progress():
 
     return jsonify({'message': message})
 
+@app.route('/get_completion_cache', methods=['GET'])
+def get_completion_cache():
+    return jsonify({'completion_cache': assignment_completion_cache})
+
+@app.route('/get_progress_cache', methods=['GET'])
+def get_progress_cache():
+    return jsonify({'progress_cache': assignment_progress_cache})
+
+
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
