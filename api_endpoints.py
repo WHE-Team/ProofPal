@@ -41,9 +41,8 @@ def exit_fortnite():
             return
 
 def check_and_exit_fortnite():
-    while True:
-        if game_locked:
-            exit_fortnite()
+    if game_locked:
+        exit_fortnite()
 
 @app.route('/unlock', methods=['GET', 'POST'])
 def unlock():
