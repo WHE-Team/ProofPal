@@ -13,7 +13,7 @@ def index():
         # Make a GET request
         api_url = "https://eo5bs0p3l6ch4f2.m.pipedream.net"
         response = requests.get(api_url)
-        response.raise_for_status()  # Raise an HTTPError for bad responses
+        response.raise_for_status()
         api_data = response.json()
         assignments_data = api_data.get("$return_value", [])
         print("API Response:", assignments_data)
@@ -60,7 +60,6 @@ def get_completion_cache():
 @app.route('/get_progress_cache', methods=['GET'])
 def get_progress_cache():
     return jsonify({'progress_cache': assignment_progress_cache})
-
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
