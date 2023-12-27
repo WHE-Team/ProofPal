@@ -37,6 +37,7 @@ def exit_fortnite():
             print("Terminating...")
             psutil.Process(process.info['pid']).terminate()
             print("Terminated.")
+            show_popup_message("To play games, complete your work!")
             return
 
 def check_and_exit_fortnite():
