@@ -1,6 +1,7 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 import psutil
 import threading
+import ctypes
 
 app = Flask(__name__)
 
@@ -17,8 +18,11 @@ def lock_game_content():
     exit_fortnite()
     global game_locked
     game_locked = True
-    return 'Game content locked for all users'
+    show_popup_message("To play games, complete your work!")
+    return jsonify({'message': 'Game content locked for all users'})
 
+def show_popup_message(message):
+    ctypes.windll.user32.MessageBoxW(0, message, "Message", 1)
 
 def run_game():
     # Check if the game is unlocked
@@ -47,7 +51,7 @@ def unlock():
 @app.route('/lock', methods=['GET', 'POST'])
 def lock():
     exit_fortnite()
-    return jsonify({'message': lock_game_content()})
+    return lock_game_content()
 
 @app.route('/exit', methods=['POST', 'GET'])
 def exit_fortnite_endpoint():
