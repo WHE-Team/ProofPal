@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Portal</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Assignments</h1>
+    {% if assignments %}
+        <ul>
+            {% for assignment in assignments %}
+                <li>
+                    {% if assignment and assignment.title %}
+                        <strong>{{ assignment.title }}</strong>
+                        {% if assignment.dueDate %}
+                            <p>Due Date: {{ assignment.dueDate.month }}/{{ assignment.dueDate.day }}/{{ assignment.dueDate.year }} at {{ assignment.dueTime.hours }}:{{ assignment.dueTime.minutes }}</p>
+                        {% endif %}
+                        <p>Max Points: {{ assignment.maxPoints }}</p>
+                        <p>Work Type: {{ assignment.workType }}</p>
+                        {% if assignment.materials and assignment.materials[0].form and assignment.materials[0].form.title %}
+                            <p>Material Title: {{ assignment.materials[0].form.title }}</p>
+                        {% endif %}
+                        <button onclick="checkForCompletion('{{ assignment.id }}')">Check for Completion</button>
+                        <button onclick="checkForProgress('{{ assignment.id }}')">Check for Progress</button>
+                    {% else %}
+                        <p>Invalid assignment format.</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No assignments available.</p>
+    {% endif %}
+    <script>
+        function checkForCompletion(assignmentId) {
+            // Make a request to the server to save the completion status to cache
+            fetch('/save_completion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    assignmentId: assignmentId,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Display a message (you can customize this)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function checkForProgress(assignmentId) {
+            var goal = prompt("Enter your goal for this assignment:");
+            if (goal !== null) {
+                // User clicked OK (not canceled)
+                // Make a request to the server to save both completion status and goal to cache
+                fetch('/save_progress', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        assignmentId: assignmentId,
+                        goal: goal,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message); // Display a message (you can customize this)
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
