@@ -49,11 +49,7 @@ def lock():
     exit_fortnite()
     return jsonify({'message': lock_game_content()})
 
-@app.route('/run', methods=['GET', 'POST'])
-def run():
-    return jsonify({'message': run_game()})
-
-@app.route('/exit_fortnite', methods=['POST', 'GET'])
+@app.route('/exit', methods=['POST', 'GET'])
 def exit_fortnite_endpoint():
     exit_fortnite()
     return jsonify({'message': 'Exiting Fortnite'})
@@ -63,6 +59,4 @@ if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
 
     # Start the thread to check and exit Fortnite
-    fn = threading.Thread(target=check_and_exit_fortnite)
-    fn.daemon = True
-    fn.start()
+    threading.Thread(target=check_and_exit_fortnite).start()
