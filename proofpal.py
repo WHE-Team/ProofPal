@@ -9,8 +9,8 @@ import base64
 SCOPES = ['https://www.googleapis.com/auth/classroom.courses.readonly',
           'https://www.googleapis.com/auth/classroom.coursework.students.readonly']
 SERVICE_ACCOUNT_FILE = 'C:/Users/arnna/OneDrive/Desktop/ProofPal/service-account-file.json'
-COURSE_ID = 'NjQ2NjY5NjYyODEy'
-ASSIGNMENT_ID = 'NjQ2NjY5Njk5MzUx'
+COURSE_ID = ''
+ASSIGNMENT_ID = ''
 
 # Add your game unlocking mechanism here
 def authenticate():
