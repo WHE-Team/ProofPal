@@ -3,10 +3,10 @@ import os
 from openai import OpenAI
 
 
-os.environ['OPENAI_API_KEY'] = ''
+apikey = os.environ['OPENAI_API_KEY']
 
 client = OpenAI(
-    api_key="",
+    api_key=apikey,
 )
 
 def analyze_homework(content, goal):
