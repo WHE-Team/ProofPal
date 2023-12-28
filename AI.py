@@ -6,7 +6,7 @@ from openai import OpenAI
 os.environ['OPENAI_API_KEY'] = ''
 
 client = OpenAI(
-    api_key="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",
+    api_key="",
 )
 
 def analyze_homework(content, goal):
